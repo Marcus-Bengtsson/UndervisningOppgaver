@@ -1,12 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <title>Uke1Oppgave</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        div.page {
+            height: 100vh;
+            display: grid;
+            grid-template-rows: 40px 10fr 20px;
+            grid-template-areas: 'header'
+                'mainContent'
+                'footer';
+        }
+
+        div.header {
+            grid-area: header;
+            text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 30px;
+            color: white;
+            background-color: rgb(39, 153, 247);
+        }
+
+        div.mainContent {
+            grid-area: mainContent;
+            padding-left: 10px;
+            background-color: rgba(0, 212, 219, 0.267);
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            font-size: 20px;
+        }
+
+        div.footer {
+            background-color: lightgrey;
+            grid-area: footer;
+            text-align: right;
+            padding-right: 5px;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div class="page">
+        <div class="header">My Website</div>
+
+        <div class="mainContent">
+            <h1>My favorite Drinks</h1>
+            <ul>
+                <li>Water</li>
+                <li>Coffee</li>
+                <li>Coca Cola</li>
+                <li>Fanta Exotic</li>
+                <li>Red Wine</li>
+            </ul>
+            <table>
+                <tr>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>13:45</td>
+                    <td>18:20</td>
+                    <td>4hr 35min</td>
+                </tr>
+                <tr>
+                    <td>9:36</td>
+                    <td>12:41</td>
+                    <td>3hr 5min</td>
+                </tr>
+                <tr>
+                    <td>22:22</td>
+                    <td>04:56</td>
+                    <td>6hr 34min</td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">Copyright 2021 Marcus Bengtsson</div>
+    </div>
 </body>
+
 </html>
