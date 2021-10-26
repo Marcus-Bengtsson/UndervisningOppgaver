@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uke2 Oppgave1</title>
+</head>
+<body>
+    <div onclick="input(this, 'Verdana')">trykk meg!</div>
+    <div onclick="input(this, 'Arial')">Nei, trykk meg!</div>
+    <div onclick="input(this, 'Georgia')">Ikke trykk dem, trykk meg!</div>
+    <div onclick="input(this, 'Cambria')">Di vet ikke hva de snakker om, trykk meg!</div>
+    <div onclick="input(this, 'Impact')">Du hvet at jeg er best, trykk meg!</div>
+    <hr>
+    <div id="output"></div>
+    
+    <script>
+        function input(element, font) {
+            document.getElementById('output').innerHTML = element.innerHTML + " Font: " + font;
+            element.style.fontFamily = font;
+            document.getElementById('output').style.fontFamily = font;
+        }
+    </script>
+</body>
+</html>
