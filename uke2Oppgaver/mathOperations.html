@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Operations</title>
+</head>
+<body>
+    <input id="widthSlider" type="range" min="1" max="1000" scale="10" oninput="showDiv()"/>
+    <input id="heightSlider" type="range" min="1" max="1000" scale="10" oninput="showDiv()"/>
+    <div id="box"></div>
+    <div id="boxhtml"></div>
+    <script>
+        var heightSlider = document.getElementById('heightSlider');
+        var widthSlider = document.getElementById('widthSlider');
+        var box = document.getElementById('box');
+        var boxhtml = document.getElementById('boxhtml');
+        
+
+        showDiv();
+        function showDiv() {
+            box.innerHTML = '<div style="background-color: cyan; width: ' + widthSlider.value 
+            + 'px; height: ' + heightSlider.value + 'px;' + '">' 
+            + 'Areal: ' + (widthSlider.value * heightSlider.value) + '</br>'
+            + ' Omkrets: ' + (widthSlider.value * 2 + heightSlider.value * 2) 
+            + '</div>'
+        }
+    </script>
+</body>
+</html>

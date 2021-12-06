@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Kalkulator</title>
+    <style type="text/css">
+        div {
+            float: left;
+            background-color: beige;
+            width: 50px;
+            height: 50px;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            line-height: 50px;
+            vertical-align: middle;
+            font-family: helvetica;
+            font-size: 200%;
+            border: #bbbbaa solid 4px;
+            border-radius: 10px;
+        }
+
+        div.resultBox {
+            width: 344px;
+            text-align: right;
+        }
+
+        div.firstInRow {
+            clear: left;
+        }
+        
+        #app {
+            width: 400px;
+            height: 500px;
+            background-color: transparent;
+            border: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/javascript">
+        //model
+        var resultBox = '';
+        
+        //view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML = `
+            <div class="resultBox rute">${resultBox}</div>
+
+            <div class="firstInRow rute" onclick="addCharacter(7)">7</div>
+            <div class="rute" onclick="addCharacter(8)">8</div>
+            <div class="rute" onclick="addCharacter(9)">9</div>
+            <div class="rute" onclick="addCharacter('÷')">÷</div>
+
+            <div class="firstInRow rute" onclick="addCharacter(4)">4</div>
+            <div class="rute" onclick="addCharacter(5)">5</div>
+            <div class="rute" onclick="addCharacter(6)">6</div>
+            <div class="rute" onclick="addCharacter('×')">×</div>
+
+            <div class="firstInRow rute" onclick="addCharacter(1)">1</div>
+            <div class="rute" onclick="addCharacter(2)">2</div>
+            <div class="rute" onclick="addCharacter(3)">3</div>
+            <div class="rute" onclick="addCharacter('-')">-</div>
+
+            <div class="firstInRow rute" onclick="addCharacter(0)">0</div>
+            <div class="rute" onclick="clearResult()">C</div>
+            <div class="rute" onclick="calculate()">=</div>
+            <div class="rute" onclick="addCharacter('+')">+</div>
+            `
+        }
+        
+        //controller
+        function addCharacter(x) {
+            resultBox += x;
+            updateView();
+        }
+
+        function calculate() {
+            var calculation = resultBox
+                .replace('×', '*')
+                .replace('÷', '/');
+            resultBox = eval(calculation).toString();
+            updateView();
+        }
+        function clearResult() {
+            resultBox = '';
+            updateView();
+        }
+
+        
+    </script>
+</body>
+
+</html>

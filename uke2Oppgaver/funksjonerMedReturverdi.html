@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Funksjoner med returverdi</title>
+    <style>
+        div {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var gangerKjørt = 0
+        tilfeldigFirkant();
+
+        function tilfeldigFirkant() {
+            tilfeldigOrd();
+            var endX = tilfeldigTall(window.innerWidth * 0.2, window.innerWidth);
+            var endY = tilfeldigTall(window.innerHeight * 0.2, window.innerHeight);
+
+            var startX = tilfeldigTall(1, endX * 0.8);
+            var startY = tilfeldigTall(1, endY * 0.8);
+            var bredde = endX - startX;
+            var høyde = endY - startY;
+            var farge = tilfeldigFarge();
+            var ord = tilfeldigOrd();
+            var divHtml = '<div style="' +
+                delAvStylePx('left', startX) +
+                delAvStylePx('top', startY) +
+                delAvStylePx('width', bredde) +
+                delAvStylePx('height', høyde) +
+                delAvStyle('background-color', farge) +
+                '">' + ord
+                + '</div>';
+            document.write(divHtml);
+            ord = '';
+            if (Math.random() < 0.9) tilfeldigFirkant();
+        }
+
+        function delAvStylePx(navn, verdi) {
+            return delAvStyle(navn, verdi + 'px');
+        }
+
+        function delAvStyle(navn, verdi) {
+            return navn + ':' + verdi + ';';
+        }
+
+        function tilfeldigFarge() {
+            return '#' +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF();
+        }
+
+        function tilfeldigTallEllerBokstavABCDEF() {
+            var tall = tilfeldigTall(0, 15);
+            if (tall < 10) return tall;
+            const charCodeA = 'a'.charCodeAt(0);
+            return String.fromCharCode(tall - 10 + charCodeA);
+        }
+        
+        //generer et tilfeldig ord med konsonant-vokal-konsonant-vokal-konsonant
+        function tilfeldigOrd() {
+            let ord = '';
+            ord += tilfeldigKonsonant()
+            ord += tilfeldigVokal()
+            ord += tilfeldigKonsonant()
+            ord += tilfeldigVokal()
+            ord += tilfeldigKonsonant()
+            return ord;
+            /* Generer et tilfeldig ord på 5 bokstaver som ignorer bokstavtype
+            ord += tilfeldigBokstav();
+            gangerKjørt++;
+            if (gangerKjørt =< 4) {
+                tilfeldigOrd();
+            }
+            else {
+                gangerKjørt = 0;
+                console.log(ord);
+                return ord;
+            }*/
+        }
+
+        //generer en tilfeldig vokal
+        function tilfeldigVokal() {
+            var tall = tilfeldigTall(0, 8);
+            if(tall === 0) return 'a';
+            if(tall === 1) return 'e';
+            if(tall === 2) return 'i';
+            if(tall === 3) return 'o';
+            if(tall === 4) return 'u';
+            if(tall === 5) return 'y';
+            if(tall === 6) return 'æ';
+            if(tall === 7) return 'ø';
+            if(tall === 8) return 'å';
+            else return 'Noe gikk feil i tilfeldigVokal';
+        }
+        
+        //generer en tilfeldig vokal
+        function tilfeldigKonsonant() {
+            var tall = tilfeldigTall(0, 19);
+            if(tall === 0) return 'b';
+            if(tall === 1) return 'c';
+            if(tall === 2) return 'd';
+            if(tall === 3) return 'f';
+            if(tall === 4) return 'g';
+            if(tall === 5) return 'h';
+            if(tall === 6) return 'j';
+            if(tall === 7) return 'k';
+            if(tall === 8) return 'l';
+            if(tall === 9) return 'm';
+            if(tall === 10) return 'n';
+            if(tall === 11) return 'p';
+            if(tall === 12) return 'q';
+            if(tall === 13) return 'r';
+            if(tall === 14) return 's';
+            if(tall === 15) return 't';
+            if(tall === 16) return 'v';
+            if(tall === 17) return 'w';
+            if(tall === 18) return 'x';
+            if(tall === 19) return 'z';
+            else return 'Noe gikk feil i tilfeldigKonsonant';
+        }
+        /* Generer em tilfeldig bokstav som ignorer bokstavtype
+        function tilfeldigBokstav() {
+            
+            var tall = tilfeldigTall(0, 28);
+            if (tall == 28) return 'å';
+            else if (tall == 27) return 'ø';
+            else if (tall == 26) return 'æ';
+            else {
+                const charCodeA = 'a'.charCodeAt(0);
+                return String.fromCharCode(tall + charCodeA);
+            }
+        }*/
+
+        function tilfeldigTall(minimum, maksimum) {
+            return minimum + Math.floor(Math.random() * (maksimum - minimum + 1));
+        }
+    </script>
+</body>
+
+</html>

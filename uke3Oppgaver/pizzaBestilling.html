@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Bestilling</title>
+    <style>
+        div {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        button {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        //model
+        let størrelse = "";
+        let form = "";
+        let bunn = "";
+        let kjøtt = "";
+        let ost = "";
+        let bestilling = "";
+        let bestillingTxt = "Du har ikke valgt noe enda";
+        let sendtBestilling ="";
+        let resetBestilling = "";
+        let disableButton = "disabled";
+        
+        //view
+        updateView()
+        function updateView() {
+            document.getElementById('app').innerHTML = `
+            <h1>Pizza Bestilling</h1>
+            <div>Vennligst velg størrelse, bunn, form, kjøttype og ost på pizzaen:</div>
+            Størrelse: 
+            <input type="radio" name="pizzaSize" onchange="updatePizza('Liten')"> Liten
+            <input type="radio" name="pizzaSize" onchange="updatePizza('Medium')"> Medium
+            <input type="radio" name="pizzaSize" onchange="updatePizza('Stor')"> Stor
+            <br/>
+            Bunn:
+            <input type="radio" name="pizzaCrust" onchange="updatePizza('Tynn')"> Tynn
+            <input type="radio" name="pizzaCrust" onchange="updatePizza('Tykk')"> Tykk
+            <br/>
+            Form:
+            <input type="radio" name="pizzaShape" onchange="updatePizza('Rund')"> Rund
+            <input type="radio" name="pizzaShape" onchange="updatePizza('Firkantet')"> Firkantet
+            <input type="radio" name="pizzaShape" onchange="updatePizza('Pizzamide')"> Pizzamide
+            <br/>
+            Kjøtt: 
+            <input type="radio" name="pizzaMeat" onchange="updatePizza('Pepperoni')"> Pepperoni
+            <input type="radio" name="pizzaMeat" onchange="updatePizza('Kylling')"> Kylling
+            <input type="radio" name="pizzaMeat" onchange="updatePizza('Skinke')"> Skinke
+            <input type="radio" name="pizzaMeat" onchange="updatePizza('Ansjos')"> Ansjos
+            <br/>
+            Ost: 
+            <input type="radio" name="pizzaCheese" onchange="updatePizza('Gulost')"> Gulost
+            <input type="radio" name="pizzaCheese" onchange="updatePizza('Mozzarella')"> Mozzarella
+            <input type="radio" name="pizzaCheese" onchange="updatePizza('Fire oster')"> Fire Oster
+            <div id="bestilling"></div>
+            `
+        }
+        updateText()
+        function updateText() {
+            document.getElementById('bestilling').innerHTML = `
+            ${bestillingTxt} ${bestilling}
+            <br/>
+            <button onclick="sendOrder()" ${disableButton}/>Bestill</button>
+            <br/>
+            ${sendtBestilling}
+            <br/>
+            ${resetBestilling}
+            `
+        }
+
+        //controller
+        function updatePizza(pizzaInfo){
+            if(pizzaInfo == 'Liten' || pizzaInfo == 'Medium' || pizzaInfo == 'Stor') {
+                størrelse = pizzaInfo;
+            }
+            if(pizzaInfo == 'Tynn' || pizzaInfo == 'Tykk') {
+                bunn = pizzaInfo;
+            }
+            if(pizzaInfo == 'Rund' || pizzaInfo == 'Firkantet' || pizzaInfo == 'Pizzamide') {
+                form = pizzaInfo;
+            }
+            if(pizzaInfo == 'Pepperoni' || pizzaInfo == 'Kylling' || pizzaInfo == 'Skinke' || pizzaInfo == 'Ansjos') {
+                kjøtt = pizzaInfo;
+            }
+            if(pizzaInfo == 'Gulost' || pizzaInfo == 'Mozzarella' || pizzaInfo == 'Fire oster') {
+                ost = pizzaInfo;
+            }
+            bestillingTxt = "din bestilling er :"
+            bestilling = `${størrelse} ${bunn} ${form} ${kjøtt} ${ost}`
+            if(størrelse != '' && form != '' && bunn != '' && kjøtt != '' && ost != ''){
+                disableButton = "";
+            }
+            updateText()
+        }
+        function sendOrder() {
+            sendtBestilling = `
+            Din bestilling har nå blitt sendt, du bestilte: 
+            En ${størrelse}, ${bunn}, ${form} pizza, med ${kjøtt} og ${ost}
+            `
+            resetBestilling = `<button onclick="resetOrder()">Send ny bestilling</button>`
+            updateText()
+        }
+        function resetOrder() {
+            størrelse = "";
+            form = "";
+            bunn = "";
+            kjøtt = "";
+            ost = "";
+            bestilling = "";
+            bestillingTxt = "Du har ikke valgt noe enda";
+            sendtBestilling ="";
+            resetBestilling = "";
+            updateView()
+            updateText()
+        }
+    </script>
+</body>
+</html>

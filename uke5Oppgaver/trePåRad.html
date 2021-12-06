@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Tre på rad</title>
+    <style type="text/css">
+        div.board {
+            color: green;
+            background-color: lightgray;
+            width: 100px;
+            height: 100px;
+            float: left;
+            margin: 2px;
+            font-size: 500%;
+            font-family: helvetica;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .first {
+            clear: left;
+        }
+
+        .winBox {
+            height: 20px;
+            width: 310px;
+            text-align: center;
+        }
+
+        button {
+            width: 150px;
+            height: 30px;
+            margin-left: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+    <script type="text/javascript">
+        // model
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let emptySpaces = [];
+        let checkWin = "x";
+
+        // view
+        showBoard();
+        function showBoard(element) {
+            document.getElementById('app').innerHTML = `
+            <div class="winBox">${checkWin == "x" ? "You won!" : checkWin == "o" ? "You lost!" : ""}</div>
+            <button onclick="resetBoard()">Reset</button>
+            <br>
+            <div class="board" onclick="setX(0)">${board[0]}</div>
+            <div class="board" onclick="setX(1)">${board[1]}</div>
+            <div class="board" onclick="setX(2)">${board[2]}</div>
+            <div class="board first" onclick="setX(3)">${board[3]}</div>
+            <div class="board" onclick="setX(4)">${board[4]}</div>
+            <div class="board" onclick="setX(5)">${board[5]}</div>
+            <div class="board first" onclick="setX(6)">${board[6]}</div>
+            <div class="board" onclick="setX(7)">${board[7]}</div>
+            <div class="board" onclick="setX(8)">${board[8]}</div>
+        `
+        }
+        
+        // controller
+        //Adds an x to the tile you clicked if allowed, and then calls setO() to add an O
+        function setX(boardSpace) {
+            if (board[boardSpace] != "x" && board[boardSpace] != "o") {
+                board[boardSpace] = "x";
+                setO();
+                checkWinning();
+            }
+            showBoard();
+        }
+        //adds a random O every time you've added an X
+        function setO() {
+            emptySpaces = Array.from(board.keys()).filter(i => board[i] === '');
+            if (emptySpaces.length > 0) {
+                let randomIndex = Math.floor(Math.random() * emptySpaces.length);
+                let chosenSpace = emptySpaces[randomIndex];
+                board[chosenSpace] = "o";
+                showBoard();
+                checkWinning();
+            } else console.log('there are no empty spaces left.');
+        }
+
+        //checks if someone has won
+        function checkWinning() {
+            /*  solutions:
+            Horizontal: 012, 345, 678
+            Vertical: 036, 147, 258
+            Diagonal: 048, 246 */
+
+            //checks Horizontal
+            for (let x = 0; x <= 6; x += 3) {
+                if (board[x] != "" && board[x + 1] == board[x] && board[x + 2] == board[x]) {
+                    checkWin = board[x];
+                }
+            }
+            //checks Vertical
+            for (let y = 0; y <= 2; y++) {
+                if (board[y] != "" && board[y + 3] == board[y] && board[y + 6] == board[y]) {
+                    checkWin = board[y];
+                }
+            }
+            //Checks the first diagonal
+            if (board[0] != "" && board[4] == board[0] && board[8] == board[0]) {
+                checkWin = board[0];
+            }
+            //Checks the second diagonal
+            if (board[2] != "" && board[4] == board[2] && board[6] == board[2]) {
+                checkWin = board[0];
+            }
+            showBoard()
+        }
+
+        //resets the board
+        function resetBoard() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            checkWin = "";
+            showBoard();
+        }
+    </script>
+</body>
+
+</html>

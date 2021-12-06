@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Tallpuslespill</title>
+    <style>
+        .winCheck {
+            float: left;
+            clear: left;
+            margin-left: 40px;
+        }
+        .rute {
+            color: white;
+            background-color: midnightblue;
+            padding: 10px;
+            margin: 5px;
+            border: solid black 2px;
+            width: 20px;
+            height: 20px;
+            float: left;
+        }
+
+        div.førstPåLinja {
+            clear: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="appDiv" id="app"></div>
+
+
+    <script>
+        // model
+        const app = document.getElementById('app');
+        let board = [3, 1, 5, 4, "", 8, 2, 7, 6]
+        let emptyTile = "";
+        let winCheck = "";
+
+        // view
+        //calls updateView as the page loads
+        updateView();
+        //updates the view whenever called
+        function updateView() {
+            app.innerHTML = `
+            <div class="rute" onclick="trykk('0', '1', '3')">${board[0]}</div>
+            <div class="rute" onclick="trykk('1', '0', '2', '4')">${board[1]}</div>
+            <div class="rute" onclick="trykk('2', '1', '5')">${board[2]}</div>
+
+            <div class="rute førstPåLinja" onclick="trykk('3', '0', '4', '6')">${board[3]}</div>
+            <div class="rute" onclick="trykk('4', '1', '3', '5', '7')">${board[4]}</div>
+            <div class="rute" onclick="trykk('5', '2', '4', '8')">${board[5]}</div>
+
+            <div class="rute førstPåLinja" onclick="trykk('6', '3', '7')">${board[6]}</div>
+            <div class="rute" onclick="trykk('7', '4', '6', '8')">${board[7]}</div>
+            <div class="rute" onclick="trykk('8', '5', '7')">${board[8]}</div>
+            <div class="winCheck">${winCheck}</div>
+            `
+        }
+
+        // controller
+        // Activates when you press a tile to move them if allowed
+        function trykk(ruteNummer, alt1, alt2, alt3, alt4) {
+            if (!alt3) {
+                alt3 = alt1;
+            }
+            if (!alt4) {
+                alt4 = alt1;
+            }
+            // checks which tile is empty
+            console.log(board);
+            emptyTile = board.filter(i => board[i] === '')[0];
+            if(emptyTile == undefined || emptyTile == null || emptyTile == "") { 
+                emptyTile = 0;
+            }
+            console.log(emptyTile);
+            // checks if the clicked tile is next to the empty one, and if it is, it switches them
+            if(emptyTile == alt1 || emptyTile == alt2 || emptyTile == alt3 || emptyTile == alt4) {
+            let temp = "";
+            temp = board[ruteNummer];
+            board[ruteNummer] = "";
+            board[emptyTile] = temp;
+        }
+            checkWin();
+            updateView();
+        }
+        // Checks if you've won 
+        // "board.length - 1" because it doesn't need to check the last tile, 
+        // as it will be empty if the others are correct
+        function checkWin() {
+            for(let i = 0; i < board.length - 1; i++) {
+                if(board[i] != i + 1) break;
+                if(i == board.length - 2) { 
+                    winCheck = "You've won!";
+                    board[8] = 9;
+            }
+            }
+            updateView()
+        }
+
+
+    </script>
+</body>
+
+</html>

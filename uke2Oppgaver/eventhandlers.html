@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHandlers</title>
+</head>
+
+<body>
+    <div ondblclick="doubleClick(this)"oncontextmenu="contextMenu(this)">Test</div>
+    <input onkeydown="keyPress(this)">
+    <script>
+        function doubleClick(element) {
+            console.log(element.innerHTML + ' was double clicked')
+        }
+        function keyPress(element) {
+            console.log('A key was pressed in the input box')
+        }
+        function contextMenu(element) {
+            console.log(element.innerHTML + ' was right clicked')
+        }
+    </script>
+</body>
+
+</html>

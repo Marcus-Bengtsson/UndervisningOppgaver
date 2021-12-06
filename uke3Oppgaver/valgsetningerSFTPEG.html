@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <select onchange="changebgcolor(this)">
+        <option value="black">svart</option>
+        <option value="darkblue">mørkeblå</option>
+        <option value="lightgrey">lysegrå</option>
+        <option value="lightgreen ">lysegrønn</option>
+        <option value="IndianRed">lyserød</option>
+    </select>
+
+    <script>
+        //model
+        var backgroundColor = '';
+        var textColor = '';
+        
+        //view
+        updateview()
+        function updateview() {
+            document.getElementById('app').innerHTML = `
+                <div style="background-color: ${backgroundColor}; 
+                color: ${textColor}">
+                Her er litt tekst
+                </div>
+            `
+        }
+        
+        //controller
+        function changebgcolor(inputValue) {
+            backgroundColor = inputValue.value
+            if(backgroundColor == 'black' || backgroundColor == 'darkblue') {
+                textColor = 'white';
+            }
+            else {
+                textColor = 'black';
+            }
+            updateview()
+        }
+    </script>
+</body>
+</html>

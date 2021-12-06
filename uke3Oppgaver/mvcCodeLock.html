@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>codeLock</title>
+    <style>
+        div.rute {
+            color: white;
+            background-color: midnightblue;
+            padding: 10px;
+            margin: 5px;
+            border: solid black 2px;
+            width: 20px;
+            height: 20px;
+            float: left;
+        }
+
+        div.newLine {
+            clear: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+
+    <script>
+        //model
+        var numbersClicked = '';
+
+        //controller
+        function clicked(number) {
+            numbersClicked += number;
+            console.log('tall trykt:', numbersClicked);
+            if (numbersClicked == 3812) {
+                alert('Riktig kombinasjon!');
+                numbersClicked = '';
+            }
+            else if (numbersClicked.length == 4) {
+                numbersClicked = '';
+                alert('Feil kombinasjon!');
+            }
+            updateview();
+        }
+        function reset() {
+            numbersClicked = '';
+            console.log(numbersClicked);
+            updateview();
+        }
+        
+        //view
+        updateview();
+        function updateview() {
+            document.getElementById('app').innerHTML = `
+                <div onclick="clicked('1')" class="rute">1</div>
+                <div onclick="clicked('2')" class="rute">2</div>
+                <div onclick="clicked('3')" class="rute">3</div>
+                <div onclick="clicked('4')" class="rute newLine">4</div>
+                <div onclick="clicked('5')" class="rute">5</div>
+                <div onclick="clicked('6')" class="rute">6</div>
+                <div onclick="clicked('7')" class="rute newLine">7</div>
+                <div onclick="clicked('8')" class="rute">8</div>
+                <div onclick="clicked('9')" class="rute">9</div>
+                <p>${numbersClicked || 0}</p>
+                <button onclick="reset()">Click here to reset the lock</div>
+                `
+        }
+    </script>
+</body>
+
+</html>

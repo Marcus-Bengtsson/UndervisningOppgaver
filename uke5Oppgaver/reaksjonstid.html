@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: 70px 70px 70px 70px 70px;
+
+        }
+
+        .lamp {
+            background-color: darkgray;
+            border: 2px solid black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 10px
+        }
+
+        .lightOn {
+            background-color: yellow;
+            border: 2px solid black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin: 10px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        // model
+        const app = document.getElementById('app'); ''
+        let startTime = new Date().getTime();
+        let spentSeconds = 0;
+        let spentTimeDiv = "";
+        let averageTime = 0;
+        let timesPressed = -1;
+        let totalTimeSpent = 0;
+        let timeOutVar;
+        let lampList = [
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", ""];
+        let onClickState = [
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", "",
+            "", "", "", "", ""];
+        // view
+        changeActiveLamp(1)
+        updateView();
+        //updates the view of all the lamps and text whenever it's called
+        function updateView() {
+            let html = "";
+            //generates 25 lamps that refresh every time updateView() is called
+            html += `<div class="grid-container">`;
+            for (let i = 0; i < lampList.length; i++) {
+                html += `<div class="lamp ${lampList[i]}" onclick="${onClickState[i]}"></div>`;
+            }
+            html += ` 
+            </div>
+            <button onclick="resetTimes()">Restart</button>
+            <div>${spentTimeDiv}</div>
+            `;
+
+            app.innerHTML = html
+        }
+        // controller
+        // Changes the active lamp to a random one, and checks how long you took to press the last lamp
+        function changeActiveLamp(initialLoad) {
+            //calculates how much time was spent between when a light turned on,
+            //and when it was clicked
+            spentSeconds = Math.floor(new Date().getTime() - startTime) / 1000;
+            console.log(spentSeconds);
+            //updates the average time spent to click each light
+            updateAverageTime();
+            //clears everything in the 'lampList' and 'onClickState' arrays to turn all the lamps off
+            lampList.fill("");
+            onClickState.fill("");
+            //clears timeout if it was currently running
+            clearTimeout(timeOutVar);
+            //sets random timeout between 0.2 and 3 sec before the next one activates
+            timeOutVar = setTimeout(activateRandomLamp, generateRandomNumber(200, 3000))
+            //makes sure the text doesn't appear when you initially load the page
+            if (initialLoad != 1) {
+                spentTimeDiv = `
+                    You spent: ${spentSeconds} seconds to press the lamp! 
+                    </br>Average time spent: ${averageTime} seconds.
+                    `;
+            }
+            updateView()
+        }
+        //turns on a random lamp and saves the time for when it last did
+        function activateRandomLamp() {
+            //generates a random number between 0 and 24
+            let selectedLampIndex = generateRandomNumber(0, 24)
+            console.log("randonumber: ", selectedLampIndex);
+            //turns on the lamp with the random index chosen above, and makes it clickable 
+            lampList[selectedLampIndex] = "lightOn";
+            onClickState[selectedLampIndex] = "changeActiveLamp()";
+            //updates the start time to the time the next light turned on
+            startTime = new Date().getTime();
+            updateView();
+        }
+
+        //updates the average time spent from when a light appeared until it was clicked
+        function updateAverageTime() {
+            timesPressed++;
+            totalTimeSpent += spentSeconds;
+            averageTime = (totalTimeSpent / timesPressed).toFixed(3);
+        }
+        //resets everything so you can start over
+        function resetTimes() {
+            changeActiveLamp();
+            spentSeconds = 0;
+            spentTimeDiv = "";
+            averageTime = 0;
+            timesPressed = 0;
+            totalTimeSpent = 0;
+            updateView();
+        }
+        function generateRandomNumber(min = 0, max) {
+            return Math.floor(min + Math.random() * (max - min + 1));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body onload="eventHandler('onload')">
+    <input type="text" onchange="eventHandler('onchange')" oninput="eventHandler('oninput')" />
+    <h3 onmouseover="eventHandler('onmouseover')" onmouseout="eventHandler('onmouseout')">Test test test</h3>
+    <h2 id="info"></h2>
+    <script>
+        function eventHandler(event) {
+            document.getElementById('info').innerHTML += `<li>${event}</li>`;
+        }
+    </script>
+</body>
+
+</html>

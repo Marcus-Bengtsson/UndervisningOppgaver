@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number</title>
+</head>
+
+<body>
+    <button onclick="generateNew()">Generate new random numbers</button>
+    <div id="randomDiv">123</div>
+    <div id="randomDivHtml" style="width: 500px;"></div>
+
+    <script>
+        var randomWidth = 200 + Math.round(Math.random() * 300);
+        var randomHeight = 200 + Math.round(Math.random() * 300);
+        var randomBorderSize = 1 + Math.floor(Math.random() * 20);
+        var randomDiv = document.getElementById('randomDiv')
+        var randomDivHtml = document.getElementById('randomDivHtml')
+
+        //Makes a div inside "randomDiv" that has a random width & height between 200-500px
+        //and a border between 1-20px
+        randomDiv.innerHTML = '<div style="background-color: red; width: '
+            + randomWidth + 'px;' + 'height: '
+            + randomHeight + 'px; '
+            + 'border: black solid ' + randomBorderSize + 'px; ' + '">'
+            + 'Width: ' + randomWidth + '</br>'
+            + 'Height: ' + randomHeight + '</br>'
+            + 'Border size: ' + randomBorderSize
+            + '</div>';
+
+        randomDivHtml.innerText = randomDiv.innerHTML
+
+        //Does the same thing, but with a button instead of having to refresh the page
+        function generateNew() {
+            randomWidth = 200 + Math.round(Math.random() * 300);
+            randomHeight = 200 + Math.round(Math.random() * 300);
+            randomBorderSize = 1 + Math.floor(Math.random() * 20);
+
+            randomDiv.innerHTML = '<div style="background-color: red; width: '
+            + randomWidth + 'px;' + 'height: '
+            + randomHeight + 'px; '
+            + 'border: black solid ' + randomBorderSize + 'px; ' + '">'
+            + 'Width: ' + randomWidth + '</br>'
+            + 'Height: ' + randomHeight + '</br>'
+            + 'Border size: ' + randomBorderSize
+            + '</div>';
+        }
+    </script>
+</body>
+
+</html>

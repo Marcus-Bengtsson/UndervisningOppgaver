@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>codeLock</title>
+    <style>
+        div {
+            color: white;
+            background-color: midnightblue;
+            padding: 10px;
+            margin: 5px;
+            border: solid black 2px;
+            width: 20px;
+            height: 20px;
+            float: left;
+        }
+        div.newLine {
+            clear: left;
+        }
+    </style>
+</head>
+<body>
+    <div onclick="clicked('1')">1</div>
+    <div onclick="clicked('2')">2</div>
+    <div onclick="clicked('3')">3</div>
+    <div class="newLine" onclick="clicked('4')">4</div>
+    <div onclick="clicked('5')">5</div>
+    <div onclick="clicked('6')">6</div>
+    <div class="newLine" onclick="clicked('7')">7</div>
+    <div onclick="clicked('8')">8</div>
+    <div onclick="clicked('9')">9</div>
+    <p id="output">0</p>
+    <button onclick="reset()">Click here to reset the lock</div>
+    
+
+    <script>
+        var numbersClicked = '';
+
+        function clicked(number) {
+            numbersClicked += number;
+            console.log('tall trykt:', numbersClicked);
+            document.getElementById('output').innerHTML = numbersClicked;
+            if (numbersClicked == 3812) {
+                alert('Riktig kombinasjon!')
+                numbersClicked = '';
+                console.log(numbersClicked)
+                document.getElementById('output').innerHTML = numbersClicked;
+            }
+            else if(numbersClicked.length == 4) {
+                numbersClicked = '';
+                console.log(numbersClicked)
+                document.getElementById('output').innerHTML = numbersClicked;
+                alert('Feil kombinasjon!')
+            }
+        }
+        function reset() {
+            numbersClicked = '';
+            console.log(numbersClicked)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>dynamicHTML</title>
+
+</head>
+
+<body>
+    <p>Ferdighet 6 - Sette sammen tekst av flere deler og bruke dette til å bygge HTML dynamisk</p>
+
+    <input id="sizeSlider" type="range" min="100" max="500" step="10" oninput="showDiv()" />
+    <input id="radiusSlider" type="range" min="1" max="30" step="1" oninput="showDiv()" />
+    <br /><input id="textInput" type="text" oninput="showDiv()" value="endre teksten!" />
+    <select id="colorChooser" onchange="showDiv()">
+        <option value="red">Red color</option>
+        <option selected value="green">Green color</option>
+        <option value="blue">Blue color</option>
+    </select>
+    <select id="borderColor"  onchange="showDiv()">
+        <option selected value="black">Black border</option>
+        <option value="grey">Grey border</option>
+        <option value="none">No border</option>
+    </select>
+    <div id="resultat" style="text-align: center;"></div>
+    <div id="resultatHtml" style="font-family: monospace"></div>
+    <script>
+        var resultatDiv = document.getElementById('resultat');
+        var resultatHtmlDiv = document.getElementById('resultatHtml');
+        var sizeSlider = document.getElementById('sizeSlider');
+        var textInput = document.getElementById('textInput');
+        var colorChooser = document.getElementById('colorChooser');
+        var borderColor = document.getElementById('borderColor');
+        var radiusSlider = document.getElementById('radiusSlider');
+
+        showDiv();
+
+        function showDiv() {
+            resultatDiv.innerHTML = '<div style="'
+                + 'background-color: ' + colorChooser.value + '; ' + 'border: 2px solid ' + borderColor.value + '; '
+                + 'border-radius: ' + radiusSlider.value + 'px' + ' ;' + 'width: ' + sizeSlider.value + 'px;'
+                + 'height: ' + sizeSlider.value + 'px;'
+                + '">' +
+                textInput.value + '</div>';
+            resultatHtmlDiv.innerText = resultatDiv.innerHTML;
+        }
+    </script>
+</body>
+
+</html>

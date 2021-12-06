@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Div Effects</title>
+
+    <style>
+        .color {
+            color: chocolate;
+        }
+
+        .border {
+            border: 2px solid black;
+        }
+
+        .backgroudColor {
+            background-color: cornflowerblue;
+        }
+
+        .fontFamily {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .fontSize {
+            font-size: 25px;
+        }
+
+        div.selected::before {
+            content: "🡆";
+        }
+
+        div.selected::after {
+            content: "🡄";
+        }
+    </style>
+</head>
+
+<body>
+    
+    <input id="checkBox1" type="checkbox" onchange="toggleStyle()">
+    <input id="checkBox2" type="checkbox" onchange="toggleStyle()">
+    <input id="checkBox3" type="checkbox" onchange="toggleStyle()">
+    <input id="checkBox4" type="checkbox" onchange="toggleStyle()">
+    <input id="checkBox5" type="checkbox" onchange="toggleStyle()">
+    <div id="box1" onclick="boxPress(this)">asdf</div>
+    <div id="box2" onclick="boxPress(this)">asdf</div>
+    <div id="box3" onclick="boxPress(this)">asdf</div>
+    <div id="box4" onclick="boxPress(this)">asdf</div>
+    <div id="box5" onclick="boxPress(this)">asdf</div>
+    <script>
+        var currentlySelected = null;
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        var box3 = document.getElementById('box3');
+        var box4 = document.getElementById('box4');
+        var box5 = document.getElementById('box5');
+        var checkBox1 = document.getElementById('checkBox1');
+        var checkBox2 = document.getElementById('checkBox2');
+        var checkBox3 = document.getElementById('checkBox3');
+        var checkBox4 = document.getElementById('checkBox4');
+        var checkBox5 = document.getElementById('checkBox5');
+
+        function boxPress(divElement) {
+            if (divElement.classList.contains('selected')) {
+                divElement.classList.remove('selected');
+                currentlySelected = null;
+            }
+            else {
+                if (currentlySelected != null) {
+                    currentlySelected.classList.remove('selected');
+                }
+                divElement.classList.add('selected');
+                currentlySelected = divElement;
+            }
+            checkBox1.checked = currentlySelected.classList.contains('color');
+            checkBox2.checked = currentlySelected.classList.contains('border');
+            checkBox3.checked = currentlySelected.classList.contains('backgroudColor');
+            checkBox4.checked = currentlySelected.classList.contains('fontFamily');
+            checkBox5.checked = currentlySelected.classList.contains('fontSize');
+
+        }
+
+        function toggleStyle() {
+            currentlySelected.classList.toggle('color', checkBox1.checked);
+            currentlySelected.classList.toggle('border', checkBox2.checked);
+            currentlySelected.classList.toggle('backgroudColor', checkBox3.checked);
+            currentlySelected.classList.toggle('fontFamily', checkBox4.checked);
+            currentlySelected.classList.toggle('fontSize', checkBox5.checked);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>QUnit Example</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+    <script src="lib.js"></script>
+    <script>
+        QUnit.test("fix kontrollsjekk - 'terje@getacademy.no'", function (assert) {
+            const actual = fixText('te.rje@getacademy.no');
+            const expected = true;
+            assert.equal(actual, expected);
+        });
+
+        QUnit.test("fix ingen @ - 'terje@getacademy.no '", function (assert) {
+            const actual = fixText('ter.jegetacademy.no');
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+
+        QUnit.test("fix ingen . etter @ - ' terje@getacademy.no'", function (assert) {
+            const actual = fixText('te.rje@getacademyno');
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+        
+        QUnit.test("fix ingen . før @ - ' terje@getacademy.no'", function (assert) {
+            const actual = fixText('terje@getacademy.no');
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+        
+        QUnit.test("fix mellomrom før og etter - 'terje@getacademy.no'", function (assert) {
+            const actual = fixText(' te.rje@getacademy.no ');
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+        
+        QUnit.test("fix mellomrom midt i - 'terje@getacademy.no'", function (assert) {
+            const actual = fixText('te.rje@ getacademy.no');
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+        
+        QUnit.test("fix null - 'null'", function (assert) {
+            const actual = fixText(null);
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+        QUnit.test("fix undefined - 'undefined'", function (assert) {
+            const actual = fixText(undefined);
+            const expected = false;
+            assert.equal(actual, expected);
+        });
+    </script>
+</body>
+</html>
